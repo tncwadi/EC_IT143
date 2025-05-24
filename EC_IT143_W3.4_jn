@@ -1,0 +1,29 @@
+-- 1. What are the names of all the products?
+SELECT Name FROM Production.Product;
+
+-- 2. What are the product numbers for red-colored products?
+SELECT ProductNumber FROM Production.Product WHERE Color = 'Red';
+
+-- 3. What are the distinct product colors?
+SELECT DISTINCT Color FROM Production.Product WHERE Color IS NOT NULL;
+
+-- 4. What is the average list price of products?
+SELECT AVG(ListPrice) AS AveragePrice FROM Production.Product;
+
+-- 5. How many employees are in the database?
+SELECT COUNT(*) AS TotalEmployees FROM HumanResources.Employee;
+
+-- 6. What are the first and last names of all employees?
+SELECT FirstName, LastName FROM Person.Person 
+JOIN HumanResources.Employee ON Person.BusinessEntityID = Employee.BusinessEntityID;
+
+-- 7. What are the names of all departments?
+SELECT Name FROM HumanResources.Department;
+
+-- 8. Which employees work in the 'Sales' department?
+SELECT p.FirstName, p.LastName, d.Name AS Department 
+FROM HumanResources.EmployeeDepartmentHistory edh
+JOIN HumanResources.Department d ON edh.DepartmentID = d.DepartmentID
+JOIN HumanResources.Employee e ON edh.BusinessEntityID = e.BusinessEntityID
+JOIN Person.Person p ON p.BusinessEntityID = e.BusinessEntityID
+WHERE d.Name = 'Sales';
